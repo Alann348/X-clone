@@ -149,6 +149,7 @@ function getFeedHtml(){
 
 function render(){
     document.getElementById('feed').innerHTML = getFeedHtml()
+    localStorage.setItem('Tweets', JSON.stringify(tweetsData))
 }
 
 render()
