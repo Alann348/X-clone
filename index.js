@@ -65,12 +65,25 @@ function handleTweetBtnClick(){
             replies: [],
             isLiked: false,
             isRetweeted: false,
-            uuid: uuidv4()
+            uuid: uuidv4(),
+            timestamp: Date.now()
         })
     render()
     tweetInput.value = ''
     }
 
+}
+function timeAgo(timestamp) {
+    if (!timestamp) return ''
+    const seconds = Math.floor((Date.now() - timestamp) / 1000)
+    if (seconds < 60) return 'just now'
+    const minutes = Math.floor(seconds / 60)
+    if (minutes < 60) return `${minutes} min ago`
+    const hours = Math.floor(minutes / 60)
+    if (hours < 24) return `${hours} h ago`
+    const days = Math.floor(hours / 24)
+    if (days < 7) return `${days} d ago`
+    return new Date(timestamp).toLocaleDateString('fi-FI')
 }
 
 function getFeedHtml(){
@@ -116,6 +129,7 @@ function getFeedHtml(){
         <div>
             <p class="handle">${tweet.handle}</p>
             <p class="tweet-text">${tweet.tweetText}</p>
+            <p class="handle">${tweet.handle} <span class="tweet-time">· ${timeAgo(tweet.timestamp)}</span></p>
             <div class="tweet-details">
                 <span class="tweet-detail">
                     <i class="fa-regular fa-comment-dots"
@@ -154,3 +168,4 @@ function render(){
 
 render()
 
+setInterval(render, 60000)

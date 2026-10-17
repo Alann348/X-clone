@@ -118,6 +118,8 @@ button{
     line-height: 20px;
 }
 
+.tweet-time { color: #888; font-weight: 400; }
+
 /* images */
 
 .profile-pic{
